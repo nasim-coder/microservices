@@ -13,4 +13,7 @@ export class User {
 
   @Column({ nullable: false })
   password: string;
+
+  @Column({ nullable: false, default: true })
+  isActive: boolean;
 }
