@@ -12,7 +12,7 @@ export class UserController {
     return newUser;
   }
 
-  @Post('/login')
+  @Post('login')
   loging(@Body() createUserDto: CreateUserDto) {
     const login = this.userService.login(createUserDto);
     return login;
