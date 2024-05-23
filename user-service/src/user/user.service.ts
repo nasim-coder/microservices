@@ -7,7 +7,7 @@ export class UserService {
   async createUser(createUserDto: CreateUserDto) {
     const { name, email, password } = createUserDto;
     if (!name || !email || !password) {
-      throw new BadRequestException('Name, email, and password are required');
+      throw new BadRequestException('Name, email, and password is required');
     }
     const user = await User.findOneBy({ email });
     if (user) {
@@ -22,5 +22,9 @@ export class UserService {
     console.log('created', created);
 
     return created;
+  }
+
+  login(createUserDto: CreateUserDto) {
+    
   }
 }
