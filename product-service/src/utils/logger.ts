@@ -1,17 +1,17 @@
-class Logger {
-  private moduleName: string;
+const createLogger = (moduleName: string) => {
+  
+  const log = (message: string) => {
+    console.log(`[LOG] ${new Date().toISOString()} [${moduleName}]: ${message}`);
+  };
 
-  constructor(moduleName: string) {
-    this.moduleName = moduleName;
-  }
+  const error = (message: string) => {
+    console.error(`[ERROR] ${new Date().toISOString()} [${moduleName}]: ${message}`);
+  };
 
-  public log(message: string) {
-    console.log(`[LOG] ${new Date().toISOString()} [${this.moduleName}]: ${message}`);
-  }
+  return {
+    log,
+    error,
+  };
+};
 
-  public error(message: string) {
-    console.error(`[ERROR] ${new Date().toISOString()} [${this.moduleName}]: ${message}`);
-  }
-}
-
-export default Logger;
+export default createLogger;

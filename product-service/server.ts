@@ -1,38 +1,14 @@
 import express from 'express';
-import database from './src/config/db';
-import routes from './src/routes/index'; // Import the routes index
+import connectDatabase from './src/config/db';
+import routes from './src/routes/index';
 
-class Server {
-    private app: express.Application;
-    private port: number;
+const app = express();
+const port = parseInt(process.env.PORT || '3000', 10);
 
-    constructor() {
-        this.app = express();
-        this.port = parseInt(process.env.PORT || '3000', 10);
-        this.initializeMiddleware();
-        this.connectDatabase();
-        this.initializeRoutes();
-    }
+app.use(express.json());
 
-    private initializeMiddleware() {
-        this.app.use(express.json());
-    }
+// Routes
+app.use('/api', routes); // Use the indexed routes
 
-    private async connectDatabase() {
-        await database.connect();
-    }
-
-    private initializeRoutes() {
-        this.app.use('api', routes); // Use the indexed routes
-    }
-
-    public start() {
-        this.app.listen(this.port, () => {
-            console.log(`Server is running on http://localhost:${this.port}`);
-        });
-    }
-}
-
-// Initialize and start the server
-const server = new Server();
-server.start();
+connectDatabase(); // Wait for the database connection
+app.listen(port, () => { console.log(`Server is running on port ${port}`) });
