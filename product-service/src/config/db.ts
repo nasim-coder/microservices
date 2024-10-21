@@ -8,7 +8,7 @@ const connectDatabase = () => {
     console.log('MongoDB connected');
   } catch (error: any) {
     console.error('MongoDB connection failed:', error);
-    process.exit(1); // Exit the process on failure
+    // process.exit(1); // Exit the process on failure
   }
 };
 

@@ -2,18 +2,18 @@ import Product from '../models/product.model';
 import Logger from '../utils/logger';
 import { Request, Response } from 'express';
 import createLogger from '../utils/logger';
+import eh from '../utils/errorHandler';
 
 const logger = createLogger('UserController');
 
 export const createUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        throw new Error("test")
+        throw new Error('This is custom error')
         const user = new Product(req.body);
         await user.save();
         res.status(201).json(user);
     } catch (error: any) {
-        logger.error(`Failed to create user: ${error.message}`);
-        res.status(400).json({ error: error.message });
+        res.status(eh(error).statusCode).send(eh(error));
     }
 };
 
